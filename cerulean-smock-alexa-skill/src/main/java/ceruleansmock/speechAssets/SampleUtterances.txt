@@ -1,0 +1,8 @@
+StartRecipeIntent start recipe {Recipe}
+StartRecipeIntent start recipe for {Recipe}
+StartRecipeIntent please start recipe {Recipe}
+StartRecipeIntent please start recipe for {Recipe}
+StartRecipeIntent start recipe {Recipe} please
+StartRecipeIntent start recipe for {Recipe} please
+
+ListIngredientsIntent list ingredients
