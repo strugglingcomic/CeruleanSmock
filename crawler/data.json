@@ -1,0 +1,282 @@
+{
+ "ingredients": [
+  {
+   "dimension": "Cup", 
+   "name": "French Green Lentils", 
+   "number": "1"
+  }, 
+  {
+   "dimension": "Cloves", 
+   "name": "Garlic", 
+   "number": "4"
+  }, 
+  {
+   "dimension": "Bunch", 
+   "name": "Asparagus", 
+   "number": "1"
+  }, 
+  {
+   "dimension": "", 
+   "name": " Fennel Bulb", 
+   "number": "1"
+  }, 
+  {
+   "dimension": "", 
+   "name": "Lemon", 
+   "number": "1"
+  }, 
+  {
+   "dimension": "", 
+   "name": "Yellow Onion", 
+   "number": "1"
+  }, 
+  {
+   "dimension": "Bunch", 
+   "name": "Chives", 
+   "number": "1"
+  }, 
+  {
+   "dimension": "Tablespoons", 
+   "name": "Tomato Paste", 
+   "number": "2"
+  }, 
+  {
+   "dimension": "", 
+   "name": " Cup Mayonnaise", 
+   "number": "\u00bc"
+  }, 
+  {
+   "dimension": "", 
+   "name": " Cup Rice Flour", 
+   "number": "\u00bc"
+  }, 
+  {
+   "dimension": "", 
+   "name": " Teaspoons Lentil Minestra Spice Blend (Ground Coriander, Sweet Paprika & Garlic Powder)", 
+   "number": "2"
+  }
+ ], 
+ "steps": [
+  {
+   "text": "Wash and dry the fresh produce. Cut off and discard any fennel stems; small dice the bulb. Peel and small dice the onion. Peel and mince the garlic; using the flat side of your knife, smash until it resembles a paste (or use a zester). Quarter and deseed the lemon. Snap off and discard the tough, woody ends of the asparagus. Cut off and reserve the top 3 inches of each asparagus stalk; thinly slice the remaining stalks crosswise. Cut the chives into \u00bd-inch pieces.", 
+   "order": 1, 
+   "title": "Prepare the ingredients:"
+  }, 
+  {
+   "text": "In a large pot, heat 2 teaspoons of olive oil on medium-high until hot. Add the fennel, onion, spice blend and \u00be of the garlic paste; season with salt and pepper. Cook, stirring occasionally, 3 to 5 minutes, or until softened and fragrant. Add the tomato paste and cook, stirring frequently, 2 to 3 minutes, or until dark red and fragrant.", 
+   "order": 2, 
+   "title": "Start the minestra:"
+  }, 
+  {
+   "text": "Add the lentils and 4 cups of water to the pot; season with salt and pepper. Heat to boiling on high. Reduce the heat to medium-high; simmer, stirring occasionally, 24 to 26 minutes, or until thickened and the lentils are tender. Stir in the sliced asparagus and the juice of the remaining lemon wedges. Remove from heat; season with salt and pepper to taste. Let stand for 2 minutes.", 
+   "order": 3, 
+   "title": "Finish the minestra:"
+  }, 
+  {
+   "text": "While the lentils simmer, in a bowl, combine the mayonnaise, remaining garlic paste and the juice of 2 lemon wedges; season with salt and pepper to taste.", 
+   "order": 4, 
+   "title": "Make the aioli:"
+  }, 
+  {
+   "text": "While the lentils continue to simmer, in a large bowl, whisk together the rice flour and 5 tablespoons of water to create a thin batter; season with salt and pepper. In a medium pan (nonstick, if you have one), heat a thin layer of oil on medium-high until hot. Working in batches, coat the asparagus tops in the batter (letting any excess drip off). Once the oil is hot enough that a drop of batter sizzles immediately when added to the pan, carefully add the coated asparagus. Cook, flipping halfway through, 3 to 5 minutes, or until golden and crispy. Transfer to a paper towel-lined plate; immediately season with salt and pepper.", 
+   "order": 5, 
+   "title": "Make the asparagus tempura:"
+  }, 
+  {
+   "text": "Divide the finished minestra between 2 bowls. Top with the asparagus tempura. Garnish with the chives. Serve with the aioli on the side. Enjoy!", 
+   "order": 6, 
+   "title": "Plate your dish:"
+  }
+ ], 
+ "metadata": {
+  "subtitle": "with Asparagus Tempura & Lemon Aioli", 
+  "title": "Lentil & Fennel Minestra ", 
+  "overview": "A classic vegetable soup (and minestrone\u2019s culinary ancestor), minestra is delicious, rustic Italian fare. In this recipe, we\u2019re making the dish with French green lentils, stewed with anise-like fennel and warm spices. For an exciting, seasonal addition, we\u2019re tempura-frying springtime asparagus (coating the stalks in rice flour batter and lightly frying them on the stove) as a crunchy, flavorful garnish.", 
+  "calories": 700, 
+  "cookTime": 45, 
+  "servings": 2
+ }
+}{
+ "ingredients": [
+  {
+   "dimension": "Cup", 
+   "name": "French Green Lentils", 
+   "number": "1"
+  }, 
+  {
+   "dimension": "Cloves", 
+   "name": "Garlic", 
+   "number": "4"
+  }, 
+  {
+   "dimension": "Bunch", 
+   "name": "Asparagus", 
+   "number": "1"
+  }, 
+  {
+   "dimension": "", 
+   "name": " Fennel Bulb", 
+   "number": "1"
+  }, 
+  {
+   "dimension": "", 
+   "name": "Lemon", 
+   "number": "1"
+  }, 
+  {
+   "dimension": "", 
+   "name": "Yellow Onion", 
+   "number": "1"
+  }, 
+  {
+   "dimension": "Bunch", 
+   "name": "Chives", 
+   "number": "1"
+  }, 
+  {
+   "dimension": "Tablespoons", 
+   "name": "Tomato Paste", 
+   "number": "2"
+  }, 
+  {
+   "dimension": "", 
+   "name": " Cup Mayonnaise", 
+   "number": "\u00bc"
+  }, 
+  {
+   "dimension": "", 
+   "name": " Cup Rice Flour", 
+   "number": "\u00bc"
+  }, 
+  {
+   "dimension": "", 
+   "name": " Teaspoons Lentil Minestra Spice Blend (Ground Coriander, Sweet Paprika & Garlic Powder)", 
+   "number": "2"
+  }, 
+  {
+   "dimension": "", 
+   "name": " Farm Eggs", 
+   "number": "2"
+  }, 
+  {
+   "dimension": "s", 
+   "name": "Pie Crust", 
+   "number": "2"
+  }, 
+  {
+   "dimension": "Cloves", 
+   "name": "Garlic", 
+   "number": "3"
+  }, 
+  {
+   "dimension": "Ounces", 
+   "name": "Pea Shoots", 
+   "number": "1\u00bd"
+  }, 
+  {
+   "dimension": "", 
+   "name": "Lemon", 
+   "number": "1"
+  }, 
+  {
+   "dimension": "", 
+   "name": "Shallot", 
+   "number": "1"
+  }, 
+  {
+   "dimension": "Pound", 
+   "name": "English Peas", 
+   "number": "\u00bd"
+  }, 
+  {
+   "dimension": "Bunch", 
+   "name": "Swiss Chard", 
+   "number": "\u00bd"
+  }, 
+  {
+   "dimension": "Cup", 
+   "name": "Sour Cream", 
+   "number": "\u00bd"
+  }, 
+  {
+   "dimension": "Cup", 
+   "name": "Crumbled Goat Cheese", 
+   "number": "\u00bc"
+  }, 
+  {
+   "dimension": "Cup", 
+   "name": "Shaved Parmesan Cheese", 
+   "number": "\u00bc"
+  }
+ ], 
+ "steps": [
+  {
+   "text": "Wash and dry the fresh produce. Cut off and discard any fennel stems; small dice the bulb. Peel and small dice the onion. Peel and mince the garlic; using the flat side of your knife, smash until it resembles a paste (or use a zester). Quarter and deseed the lemon. Snap off and discard the tough, woody ends of the asparagus. Cut off and reserve the top 3 inches of each asparagus stalk; thinly slice the remaining stalks crosswise. Cut the chives into \u00bd-inch pieces.", 
+   "order": 1, 
+   "title": "Prepare the ingredients:"
+  }, 
+  {
+   "text": "In a large pot, heat 2 teaspoons of olive oil on medium-high until hot. Add the fennel, onion, spice blend and \u00be of the garlic paste; season with salt and pepper. Cook, stirring occasionally, 3 to 5 minutes, or until softened and fragrant. Add the tomato paste and cook, stirring frequently, 2 to 3 minutes, or until dark red and fragrant.", 
+   "order": 2, 
+   "title": "Start the minestra:"
+  }, 
+  {
+   "text": "Add the lentils and 4 cups of water to the pot; season with salt and pepper. Heat to boiling on high. Reduce the heat to medium-high; simmer, stirring occasionally, 24 to 26 minutes, or until thickened and the lentils are tender. Stir in the sliced asparagus and the juice of the remaining lemon wedges. Remove from heat; season with salt and pepper to taste. Let stand for 2 minutes.", 
+   "order": 3, 
+   "title": "Finish the minestra:"
+  }, 
+  {
+   "text": "While the lentils simmer, in a bowl, combine the mayonnaise, remaining garlic paste and the juice of 2 lemon wedges; season with salt and pepper to taste.", 
+   "order": 4, 
+   "title": "Make the aioli:"
+  }, 
+  {
+   "text": "While the lentils continue to simmer, in a large bowl, whisk together the rice flour and 5 tablespoons of water to create a thin batter; season with salt and pepper. In a medium pan (nonstick, if you have one), heat a thin layer of oil on medium-high until hot. Working in batches, coat the asparagus tops in the batter (letting any excess drip off). Once the oil is hot enough that a drop of batter sizzles immediately when added to the pan, carefully add the coated asparagus. Cook, flipping halfway through, 3 to 5 minutes, or until golden and crispy. Transfer to a paper towel-lined plate; immediately season with salt and pepper.", 
+   "order": 5, 
+   "title": "Make the asparagus tempura:"
+  }, 
+  {
+   "text": "Divide the finished minestra between 2 bowls. Top with the asparagus tempura. Garnish with the chives. Serve with the aioli on the side. Enjoy!", 
+   "order": 6, 
+   "title": "Plate your dish:"
+  }, 
+  {
+   "text": "Preheat the oven to 425\u00b0F. Wash and dry the fresh produce. Heat a small pot of salted water to boiling on high. Shell the peas. Peel and mince the garlic. Separate the chard leaves and stems; roughly chop the leaves and thinly slice the stems, keeping them separate. Quarter and deseed the lemon. Peel and mince the shallot to get 2 tablespoons of minced shallot (you may have extra); place in a bowl with the juice of all 4 lemon wedges.", 
+   "order": 1, 
+   "title": "Prepare the ingredients:"
+  }, 
+  {
+   "text": "Add the peas to the pot of boiling water and cook 2 to 4 minutes, or until bright green and tender. Drain thoroughly and rinse under cold water to stop the cooking process; transfer to a bowl. Rinse and wipe out the pot.", 
+   "order": 2, 
+   "title": "Blanch the peas: "
+  }, 
+  {
+   "text": "In the pot used to cook the peas, heat 2 teaspoons of olive oil on medium-high until hot. Add the garlic and chard stems; season with salt and pepper. Cook, stirring occasionally, 1 to 2 minutes, or until lightly browned and fragrant. Add the chard leaves; season with salt and pepper. Cook, stirring occasionally, 2 to 3 minutes, or until the chard leaves have wilted. Remove from heat.", 
+   "order": 3, 
+   "title": "Cook the chard:"
+  }, 
+  {
+   "text": "While the chard cooks, season the shallot-lemon juice mixture with salt and pepper to taste. Slowly whisk in 2 tablespoons of olive oil until well combined. Set aside. Crack the eggs into a large bowl; season with salt and pepper and beat until smooth. Add the sour cream and 2 tablespoons of water; whisk until smooth. Add the blanched peas and cooked chard; season with salt and pepper and whisk until thoroughly combined.", 
+   "order": 4, 
+   "title": "Make the vinaigrette & filling:"
+  }, 
+  {
+   "text": "Place the pie crusts on a sheet pan, leaving them in their tins. Divide the filling between the crusts (you may have extra filling) and top with the goat cheese; season with salt and pepper. Bake 18 to 20 minutes, or until the crusts have browned and the filling is cooked through and slightly crispy on top. Remove from the oven and let stand for at least 5 minutes before serving.", 
+   "order": 5, 
+   "title": "Assemble & bake the quiches: "
+  }, 
+  {
+   "text": "Just before serving, in a large bowl, combine the pea shoots and Parmesan cheese; season with salt and pepper. Add enough of the vinaigrette to coat the salad (you may have extra); toss to combine and season with salt and pepper to taste. Serve the baked quiches with the salad on the side. Enjoy!", 
+   "order": 6, 
+   "title": "Make the salad & serve your dish:"
+  }
+ ], 
+ "metadata": {
+  "subtitle": "with Pea Shoot & Shaved Parmesan Salad", 
+  "title": "English Pea & Goat Cheese Quiches", 
+  "overview": "There\u2019s nothing more emblematic of spring than sweet, fresh peas. This gourmet recipe uses the crop in two ways: we\u2019re baking peas (alongside chard) into our light, creamy quiches, which we\u2019re pairing with a quick salad of pea shoots. This delectable, seasonal ingredient\u00ad\u2014the leaves and tendrils of the pea plant\u00ad\u2014needs only a splash of lemon vinaigrette to shine. But for extra flavor, we\u2019re also adding sharp, shaved Parmesan.", 
+  "calories": 700, 
+  "cookTime": 45, 
+  "servings": 2
+ }
+}
