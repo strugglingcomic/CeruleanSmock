@@ -38,6 +38,8 @@ public class BaseCookBookSpeechlet implements Speechlet {
   // session keys
   private static final String SESSION_CURRENT_RECIPE = "recipe";
   private static final String SESSION_CURRENT_RECIPE_STEP = "step";
+  
+  private static final String SPEECH_SHORT_BREAK = "<break time=\"0.25s\" />";
 
   @Override
   public void onSessionStarted(final SessionStartedRequest request, final Session session)
@@ -66,6 +68,8 @@ public class BaseCookBookSpeechlet implements Speechlet {
 
     if ("WelcomeIntent".equals(intentName)) {
       return getWelcomeResponse();
+    } else if ("QueryRecipeIntent".equals(intentName)) {
+      return getQueryRecipeResponse(intent, session);
     } else if ("PickRecipeIntent".equals(intentName)) {
         return getPickRecipeResponse(intent, session);
     } else if ("ListIngredientsIntent".equals(intentName)) {
@@ -98,22 +102,21 @@ public class BaseCookBookSpeechlet implements Speechlet {
    */
   private SpeechletResponse getWelcomeResponse() {
     String speechText = "Welcome to " + Constants.APP_NAME + "! "
-        + " For example, you can say, \"pick recipe " + Recipes.DEFAULT_RECIPE.getMetadata().getTitle() + "\", to get started cooking.";
-
-    // TODO: Create the Simple card content.
-    SimpleCard card = new SimpleCard();
-    card.setTitle(Constants.APP_NAME);
-    card.setContent(speechText);
-
-    // TODO: Create the plain text output.
-    PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-    speech.setText(speechText);
-
-    // TODO: Create reprompt
-    Reprompt reprompt = new Reprompt();
-    reprompt.setOutputSpeech(speech);
-
-    return SpeechletResponse.newAskResponse(speech, reprompt, card);
+        + " For example, you can say, Alexa, ask " + Constants.INVOCATION_NAME + " to make " + Recipes.DEFAULT_RECIPE.getMetadata().getTitle() + "\", to get started cooking!";
+    return makeSimpleAskResponse(speechText);
+  }
+  
+  private SpeechletResponse getQueryRecipeResponse(final Intent intent, final Session session) {
+    String recipeTitle = intent.getSlot(RECIPE_SLOT).getValue();
+    Recipe recipe = Recipes.get(recipeTitle);
+    if(recipe != null) {
+      String speechText = "";
+      log.info("getQueryRecipeResponse sessionId={}, picked recipeTitle={}", session.getSessionId(), recipeTitle);
+      return makeSimpleAskResponse(speechText);
+    }
+    
+    log.info("getQueryRecipeResponse sessionId={}, recipeTitle={}, step={}", session.getSessionId(), StringUtils.EMPTY, StringUtils.EMPTY);
+    return getUnknownResponse();
   }
 
   /**
@@ -129,29 +132,26 @@ public class BaseCookBookSpeechlet implements Speechlet {
     if(recipe != null) {
       session.setAttribute(SESSION_CURRENT_RECIPE, recipeTitle);
       session.setAttribute(SESSION_CURRENT_RECIPE_STEP, 0);
-
+      
       String speechText = "Ok, you picked: " + recipe.toRecipeFullTitleString() + ". "
           + " This recipe should take around " + recipe.getMetadata().getCookTime() + " minutes to cook. "
           + " It'll make " + recipe.getMetadata().getServings() + " servings, "
-          + " and has " + recipe.getMetadata().getCalories() + " calories total. "
-          + " <break time=\"0.5s\" /> Let me know when you're ready to get started!";
-
-      // TODO: Create the Simple card content.
-      SimpleCard card = new SimpleCard();
-      card.setTitle(Constants.APP_NAME);
-      card.setContent(speechText);
-
-      // TODO: Create the plain text output.
-      PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-      speech.setText(speechText);
-
-      // TODO: Create reprompt
-      Reprompt reprompt = new Reprompt();
-      reprompt.setOutputSpeech(speech);
-
+          + " and has " + recipe.getMetadata().getCalories() + " calories per serving. " + SPEECH_SHORT_BREAK
+          + " Let me know when you're ready to get started!";
+      
       log.info("getPickRecipeResponse sessionId={}, picked recipeTitle={}", session.getSessionId(), recipeTitle);
-      return SpeechletResponse.newAskResponse(speech, reprompt, card);
-    } else {
+      return makeSimpleAskResponse(speechText);
+    } else if(StringUtils.isBlank(recipeTitle)) {
+      Recipe randomRecipe = Recipes.random();
+      session.setAttribute(SESSION_CURRENT_RECIPE, randomRecipe.getMetadata().getTitle());
+      session.setAttribute(SESSION_CURRENT_RECIPE_STEP, 0);
+
+      String speechText = "Ok, let me find something for you. " + SPEECH_SHORT_BREAK
+          + " Hmm this sounds yummy, how about we make " + SPEECH_SHORT_BREAK
+          + randomRecipe.toRecipeFullTitleString() + "?";
+      return makeSimpleAskResponse(speechText);
+    }
+    else {
       return getUnknownResponse();
     }
   }
@@ -177,29 +177,16 @@ public class BaseCookBookSpeechlet implements Speechlet {
         log.error("Invalid recipeTitle={} set in sessionId={}", recipeTitle, session.getSessionId());
         return getUnknownResponse();
       }
-
-      // TODO: Create the Simple card content.
-      SimpleCard card = new SimpleCard();
-      card.setTitle(Constants.APP_NAME);
-      card.setContent(speechText);
-
-      // TODO: Create the plain text output.
-      PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-      speech.setText(speechText);
-
-      // TODO: Create reprompt
-      Reprompt reprompt = new Reprompt();
-      reprompt.setOutputSpeech(speech);
-
+      
       log.info("getListIngredientsResponse sessionId={}, list ingredients for recipeTitle={}", session.getSessionId(), recipeTitle);
-      return SpeechletResponse.newAskResponse(speech, reprompt, card);
+      return makeSimpleAskResponse(speechText);
     }
     
     return getUnknownResponse();
   }
   
   /**
-   * This intent response steps through the recipe, incrementing by 1 step at a time.
+   * This intent-response steps through the recipe, incrementing by 1 step at a time.
    * Steps are stored in a 0-indexed list, but spoken using 1-index.
    * @param intent
    * @param session
@@ -220,24 +207,11 @@ public class BaseCookBookSpeechlet implements Speechlet {
       } else {
         return getDoneResponse();
       }
-
-      // TODO: Create the Simple card content.
-      SimpleCard card = new SimpleCard();
-      card.setTitle(Constants.APP_NAME);
-      card.setContent(speechText);
-
-      // TODO: Create the plain text output.
-      PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-      speech.setText(speechText);
-
-      // TODO: Create reprompt
-      Reprompt reprompt = new Reprompt();
-      reprompt.setOutputSpeech(speech);
-
+      
       int nextStep = currentStep + 1;
       session.setAttribute(SESSION_CURRENT_RECIPE_STEP, nextStep);
       log.info("getNextStepResponse sessionId={}, recipeTitle={}, moving to step={}", session.getSessionId(), recipeTitle, nextStep);
-      return SpeechletResponse.newAskResponse(speech, reprompt, card);
+      return makeSimpleAskResponse(speechText);
     }
     
     return getUnknownResponse();
@@ -246,7 +220,6 @@ public class BaseCookBookSpeechlet implements Speechlet {
 
   /**
    * returns specific step, either for current session or for a named recipe
-   * TODO: implement querying step for recipe
    * @param intent
    * @param session
    * @return
@@ -257,7 +230,7 @@ public class BaseCookBookSpeechlet implements Speechlet {
       String recipeTitle = intent.getSlot(RECIPE_SLOT).getValue();
       String stepStr = intent.getSlot(STEP_SLOT).getValue();
       // remember to convert to 0-index for internal representation
-      int queryStep = StringUtils.isBlank(stepStr) ? (int) session.getAttribute(SESSION_CURRENT_RECIPE_STEP) : Integer.parseInt(stepStr) - 1;
+      int queryStep = (StringUtils.isBlank(stepStr) ? (int) session.getAttribute(SESSION_CURRENT_RECIPE_STEP) : Integer.parseInt(stepStr)) - 1;
       
       Recipe recipe = null;
       if(!StringUtils.isBlank(recipeTitle)) {
@@ -270,29 +243,14 @@ public class BaseCookBookSpeechlet implements Speechlet {
       if(recipe != null) {
         if(queryStep < recipe.getSteps().size() && queryStep >= 0) {
           int speechStep = queryStep + 1; // convert 0-index to 1-index
-          speechText = "Step " + speechStep + " of " + recipe.toRecipeFullTitleString() + " says: <break time=\"0.2s\" /> "
+          speechText = "Step " + speechStep + " of " + recipe.toRecipeFullTitleString() + " says: " + SPEECH_SHORT_BREAK
               + recipe.getSteps().get(queryStep);
-          log.info("getStatusResponse sessionId={}, recipeTitle={}, step={}", session.getSessionId(), recipeTitle, queryStep);
+          log.info("getQueryStepResponse sessionId={}, recipeTitle={}, step={}", session.getSessionId(), recipeTitle, queryStep);
         }
-
-        // TODO: Create the Simple card content.
-        SimpleCard card = new SimpleCard();
-        card.setTitle(Constants.APP_NAME);
-        card.setContent(speechText);
-    
-        // TODO: Create the plain text output.
-        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-        speech.setText(speechText);
-    
-        // TODO: Create reprompt
-        Reprompt reprompt = new Reprompt();
-        reprompt.setOutputSpeech(speech);
-    
-        // TODO: implement
-        log.info("getQueryStepResponse sessionId={}, recipeTitle={}, step={}", session.getSessionId(), StringUtils.EMPTY, StringUtils.EMPTY);
-        return SpeechletResponse.newAskResponse(speech, reprompt, card);
+        
+        return makeSimpleAskResponse(speechText);
       }
-      
+      log.info("getQueryStepResponse sessionId={}, recipeTitle={}, step={}", session.getSessionId(), StringUtils.EMPTY, StringUtils.EMPTY);
       return getUnknownResponse();
     } catch (NumberFormatException e) {
       return getUnknownResponse();
@@ -307,7 +265,7 @@ public class BaseCookBookSpeechlet implements Speechlet {
    * @return
    */
   private SpeechletResponse getStatusResponse(final Intent intent, final Session session) {
-    String speechText = "Sorry, we haven't picked a recipe yet.";
+    String speechText = "Sorry, we haven't picked a recipe or gotten started yet.";
     if(session.getAttributes().containsKey(SESSION_CURRENT_RECIPE)) {
       String recipeTitle = (String) session.getAttribute(SESSION_CURRENT_RECIPE);
       Recipe recipe = Recipes.get(recipeTitle);
@@ -316,47 +274,19 @@ public class BaseCookBookSpeechlet implements Speechlet {
         int speechStep = recipeStep + 1; // convert 0-index to 1-index
         int stepsRemaining = recipe.getSteps().size() - speechStep;
         speechText = "Right now, we are on step " + recipeStep + " of making: " 
-            + recipe.toRecipeTitleAndOverviewString() + " <break time=\"0.5s\" /> "
+            + recipe.toRecipeFullTitleString() + SPEECH_SHORT_BREAK
             + " Hang in there, there's only " + stepsRemaining + " steps after this one!";
         log.info("getStatusResponse sessionId={}, recipeTitle={}, step={}", session.getSessionId(), recipeTitle, recipeStep);
       }
     }
-    
-    // TODO: Create the Simple card content.
-    SimpleCard card = new SimpleCard();
-    card.setTitle(Constants.APP_NAME);
-    card.setContent(speechText);
-
-    // TODO: Create the plain text output.
-    PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-    speech.setText(speechText);
-
-    // TODO: Create reprompt
-    Reprompt reprompt = new Reprompt();
-    reprompt.setOutputSpeech(speech);
 
     log.info("getStatusResponse sessionId={}, recipeTitle={}, step={}", session.getSessionId(), StringUtils.EMPTY, StringUtils.EMPTY);
-    return SpeechletResponse.newAskResponse(speech, reprompt, card);
+    return makeSimpleAskResponse(speechText);
   }
 
   private SpeechletResponse getDoneResponse() {
-    String speechText = "Hey, guess what? We're done! Wooooohoooo, I'm so proud of us! Let's do it again soon! Goodbye.";
-
-    // TODO: Create the Simple card content.
-    SimpleCard card = new SimpleCard();
-    card.setTitle(Constants.APP_NAME);
-    card.setContent(speechText);
-
-    // TODO: Create the plain text output.
-    PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-    speech.setText(speechText);
-
-    // TODO: Create reprompt
-    Reprompt reprompt = new Reprompt();
-    reprompt.setOutputSpeech(speech);
-
-    return SpeechletResponse.newTellResponse(speech, card);
-  
+    String speechText = "Hey, guess what? We're done! <phoneme alphabet=\"ipa\" ph=\"wu.hu\">woohoo</phoneme>, I'm so proud of us! Let's do it again soon!";
+    return makeSimpleTellResponse(speechText);
   }
 
   /**
@@ -365,45 +295,54 @@ public class BaseCookBookSpeechlet implements Speechlet {
    */
   private SpeechletResponse getUnknownResponse() {
     String speechText = "Sorry, I don't know how to do that. You can say \"help\", to ask for assistance.";
-
-    SimpleCard card = new SimpleCard();
-    card.setTitle(Constants.APP_NAME);
-    card.setContent(speechText);
-
-    PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-    speech.setText(speechText);
-
-    Reprompt reprompt = new Reprompt();
-    reprompt.setOutputSpeech(speech);
-
-    return SpeechletResponse.newAskResponse(speech, reprompt, card);
+    return makeSimpleAskResponse(speechText);
   }
-  
+
   /**
    * Creates a {@code SpeechletResponse} for the help intent.
    *
    * @return SpeechletResponse spoken and visual response for the given intent
    */
   private SpeechletResponse getHelpResponse() {
-    // TODO: implement
-    String speechText = "You can ask me to: "
-        + " pick recipe, "
-        + " give a status update, "
-        + " list ingredients, "
-        + " start recipe or next step, ";
-        //+ " repeat, ";
-        //+ " go back, ";
+    String speechText = "Here's all the ways I can help. For example, you can say: " + SPEECH_SHORT_BREAK
+        + " Alexa, ask " + Constants.INVOCATION_NAME + " about " + Recipes.DEFAULT_RECIPE.getMetadata().getTitle() + ". "
+        + " Alexa, ask " + Constants.INVOCATION_NAME + " to start cooking. "
+        + " Alexa, ask " + Constants.INVOCATION_NAME + " what we're making. "
+        + " Alexa, ask " + Constants.INVOCATION_NAME + " to list the ingredients. "
+        + " Alexa, ask " + Constants.INVOCATION_NAME + " to go to next step. " + SPEECH_SHORT_BREAK
+        + " So, what would you like to do next?";
+    return makeSimpleAskResponse(speechText);
+  }
 
-    // TODO: Create the Simple card content.
+  /**
+   * simple static method to do a basic tell response, using the same speech text throughout
+   * @param speechText
+   * @return
+   */
+  private static SpeechletResponse makeSimpleTellResponse(final String speechText) {
     SimpleCard card = new SimpleCard();
     card.setTitle(Constants.APP_NAME);
     card.setContent(speechText);
 
-    // TODO: Create the plain text output.
     PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
     speech.setText(speechText);
 
-    // TODO: Create reprompt
+    return SpeechletResponse.newTellResponse(speech, card);
+  }
+
+  /**
+   * simple static method to a basic ask response, using the same speech text throughout
+   * @param speechText
+   * @return
+   */
+  private static SpeechletResponse makeSimpleAskResponse(final String speechText) {
+    SimpleCard card = new SimpleCard();
+    card.setTitle(Constants.APP_NAME);
+    card.setContent(speechText);
+
+    PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+    speech.setText(speechText);
+
     Reprompt reprompt = new Reprompt();
     reprompt.setOutputSpeech(speech);
 

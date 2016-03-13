@@ -4,34 +4,49 @@ WelcomeIntent hi
 WelcomeIntent howdy
 WelcomeIntent greetings
 
+QueryRecipeIntent {Recipe}
+QueryRecipeIntent about {Recipe}
+QueryRecipeIntent about making {Recipe}
+QueryRecipeIntent tell me about {Recipe}
+QueryRecipeIntent tell me about making {Recipe}
+QueryRecipeIntent how to make {Recipe}
+
+PickRecipeIntent choose {Recipe}
+PickRecipeIntent choose recipe {Recipe}
+PickRecipeIntent make {Recipe}
+PickRecipeIntent make recipe {Recipe}
 PickRecipeIntent pick {Recipe}
 PickRecipeIntent pick recipe {Recipe}
+PickRecipeIntent select {Recipe}
+PickRecipeIntent select recipe {Recipe}
+PickRecipeIntent chose something random
+PickRecipeIntent make something random
+PickRecipeIntent pick something random
 
 ListIngredientsIntent list ingredients
 ListIngredientsIntent list ingredients {Recipe}
-ListIngredientsIntent list ingredients for {Recipe}
 
-NextStepIntent go to next step
+NextStepIntent continue
+NextStepIntent continue cooking
 NextStepIntent next step
-NextStepIntent next step please
+NextStepIntent go to next step
+NextStepIntent i'm ready
+NextStepIntent ready
 NextStepIntent start
+NextStepIntent start cooking
 NextStepIntent start recipe
 NextStepIntent start next step
 
+QueryStepIntent step {Step}
 QueryStepIntent tell me step {Step}
-QueryStepIntent tell me about step {Step}
 QueryStepIntent read step {Step}
-QueryStepIntent read me step {Step}
 QueryStepIntent repeat
 QueryStepIntent repeat step
 QueryStepIntent repeat step {Step}
+QueryStepIntent repeat step {Step} {Recipe}
 QueryStepIntent what is step {Step}
-QueryStepIntent repeat step {Step} of {Recipe}
 QueryStepIntent what is step {Step} of recipe {Recipe}
 
-StatusIntent how am i doing
-StatusIntent how are we doing
-StatusIntent status report
 StatusIntent what am i doing
 StatusIntent what am i making
 StatusIntent what are we doing
@@ -39,8 +54,6 @@ StatusIntent what are we making
 StatusIntent what step am i on
 StatusIntent what step are we on
 StatusIntent what step is this
-StatusIntent what's happening
-StatusIntent what's up
 StatusIntent which step am i on
 StatusIntent which step are we on
 StatusIntent which step is this

@@ -4,6 +4,15 @@
       "intent": "WelcomeIntent"
     },
     {
+      "intent": "QueryRecipeIntent",
+      "slots": [
+        {
+          "name": "Recipe",
+          "type": "LIST_OF_RECIPES"
+        }
+      ]
+    },
+    {
       "intent": "PickRecipeIntent",
       "slots": [
         {
@@ -28,12 +37,12 @@
       "intent": "QueryStepIntent",
       "slots": [
         {
-          "name": "Recipe",
-          "type": "LIST_OF_RECIPES"
-        },
-        {
           "name": "Step",
           "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "Recipe",
+          "type": "LIST_OF_RECIPES"
         }
       ]
     },
