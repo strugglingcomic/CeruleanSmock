@@ -1,5 +1,8 @@
 package ceruleansmock.model.recipe;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 //import javax.measure.Measure;
 
 /**
@@ -13,10 +16,14 @@ public class Ingredient {
   private final String name;
 
   // TODO: REPLACE WITH javax.measure.Measure, dummy!
-  private final Double quantity;
+  private final double quantity;
   private final String dimension;
   
-  public Ingredient(final String name, final Double quantity, final String dimension) {
+  @JsonCreator
+  public Ingredient(
+      @JsonProperty("name") final String name,
+      @JsonProperty("quantity") final double quantity,
+      @JsonProperty("dimension") final String dimension) {
     this.name = name;
     this.quantity = quantity;
     this.dimension = dimension;
@@ -26,7 +33,7 @@ public class Ingredient {
     return this.name;
   }
 
-  public Double getQuantity() {
+  public double getQuantity() {
     return this.quantity;
   }
 

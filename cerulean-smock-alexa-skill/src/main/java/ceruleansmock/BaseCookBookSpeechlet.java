@@ -64,7 +64,6 @@ public class BaseCookBookSpeechlet implements Speechlet {
     Intent intent = request.getIntent();
     String intentName = (intent != null) ? intent.getName() : null;
 
-    // TODO: add additional intents: repeat step
     if ("WelcomeIntent".equals(intentName)) {
       return getWelcomeResponse();
     } else if ("PickRecipeIntent".equals(intentName)) {
@@ -131,7 +130,7 @@ public class BaseCookBookSpeechlet implements Speechlet {
       session.setAttribute(SESSION_CURRENT_RECIPE, recipeTitle);
       session.setAttribute(SESSION_CURRENT_RECIPE_STEP, 0);
 
-      String speechText = "Ok, you picked: " + recipe.getRecipeFullTitle() + ". "
+      String speechText = "Ok, you picked: " + recipe.toRecipeFullTitleString() + ". "
           + " This recipe should take around " + recipe.getMetadata().getCookTime() + " minutes to cook. "
           + " It'll make " + recipe.getMetadata().getServings() + " servings, "
           + " and has " + recipe.getMetadata().getCalories() + " calories total. "
@@ -173,7 +172,7 @@ public class BaseCookBookSpeechlet implements Speechlet {
       Recipe recipe = Recipes.get(recipeTitle);
       if(recipe != null) {
         speechText = "Ingredients for " + recipeTitle + ":\n"
-            + recipe.getIngredientsString();
+            + recipe.toIngredientsString();
       } else {
         log.error("Invalid recipeTitle={} set in sessionId={}", recipeTitle, session.getSessionId());
         return getUnknownResponse();
@@ -256,7 +255,9 @@ public class BaseCookBookSpeechlet implements Speechlet {
     try {
       String speechText = StringUtils.EMPTY;
       String recipeTitle = intent.getSlot(RECIPE_SLOT).getValue();
-      int queryStep = Integer.parseInt(intent.getSlot(STEP_SLOT).getValue()) - 1; // convert to 0-index
+      String stepStr = intent.getSlot(STEP_SLOT).getValue();
+      // remember to convert to 0-index for internal representation
+      int queryStep = StringUtils.isBlank(stepStr) ? (int) session.getAttribute(SESSION_CURRENT_RECIPE_STEP) : Integer.parseInt(stepStr) - 1;
       
       Recipe recipe = null;
       if(!StringUtils.isBlank(recipeTitle)) {
@@ -269,7 +270,7 @@ public class BaseCookBookSpeechlet implements Speechlet {
       if(recipe != null) {
         if(queryStep < recipe.getSteps().size() && queryStep >= 0) {
           int speechStep = queryStep + 1; // convert 0-index to 1-index
-          speechText = "Step " + speechStep + " of " + recipe.getRecipeFullTitle() + " says: <break time=\"0.2s\" /> "
+          speechText = "Step " + speechStep + " of " + recipe.toRecipeFullTitleString() + " says: <break time=\"0.2s\" /> "
               + recipe.getSteps().get(queryStep);
           log.info("getStatusResponse sessionId={}, recipeTitle={}, step={}", session.getSessionId(), recipeTitle, queryStep);
         }
@@ -315,7 +316,7 @@ public class BaseCookBookSpeechlet implements Speechlet {
         int speechStep = recipeStep + 1; // convert 0-index to 1-index
         int stepsRemaining = recipe.getSteps().size() - speechStep;
         speechText = "Right now, we are on step " + recipeStep + " of making: " 
-            + recipe.getRecipeTitleAndOverview() + " <break time=\"0.5s\" /> "
+            + recipe.toRecipeTitleAndOverviewString() + " <break time=\"0.5s\" /> "
             + " Hang in there, there's only " + stepsRemaining + " steps after this one!";
         log.info("getStatusResponse sessionId={}, recipeTitle={}, step={}", session.getSessionId(), recipeTitle, recipeStep);
       }

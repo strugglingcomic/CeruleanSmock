@@ -3,6 +3,9 @@ package ceruleansmock.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import ceruleansmock.model.recipe.Ingredient;
 import ceruleansmock.model.recipe.Metadata;
 import ceruleansmock.model.recipe.Step;
@@ -22,7 +25,11 @@ public class Recipe {
   private final List<Step> steps;
   
   // TODO: consider using factory method
-  public Recipe(final Metadata metadata, final List<Ingredient> ingredients, final List<Step> steps) {
+  @JsonCreator
+  public Recipe(
+      @JsonProperty("metadata") final Metadata metadata,
+      @JsonProperty("ingredients") final List<Ingredient> ingredients,
+      @JsonProperty("steps") final List<Step> steps) {
     this.id = NEXT_AVAILABLE_ID++;
     this.metadata = metadata;
     this.ingredients = ingredients;
@@ -100,15 +107,15 @@ public class Recipe {
     return this.steps;
   }
   
-  public String getRecipeFullTitle() {
+  public String toRecipeFullTitleString() {
     return this.getMetadata().getTitle() + " " + this.getMetadata().getSubtitle();
   }
   
-  public String getRecipeTitleAndOverview() {
-    return this.getRecipeFullTitle() + ". " + this.getMetadata().getOverview();
+  public String toRecipeTitleAndOverviewString() {
+    return this.toRecipeFullTitleString() + ". " + this.getMetadata().getOverview();
   }
   
-  public String getIngredientsString() {
+  public String toIngredientsString() {
     StringBuilder sb = new StringBuilder();
     for(Ingredient ing : this.ingredients) {
       sb.append(ing + ", ");
