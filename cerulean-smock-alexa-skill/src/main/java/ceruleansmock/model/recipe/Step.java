@@ -1,5 +1,6 @@
 package ceruleansmock.model.recipe;
 
+import com.amazonaws.util.StringUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -19,8 +20,8 @@ public class Step {
       @JsonProperty("title") final String title,
       @JsonProperty("text") final String text) {
     this.index = index;
-    this.title = title;
-    this.text = text;
+    this.title = StringUtils.trim(title);
+    this.text = StringUtils.trim(text);
   }
 
   public int getIndex() {
@@ -38,5 +39,47 @@ public class Step {
   @Override
   public String toString() {
     return this.title + ": " + this.text;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + index;
+    result = prime * result + ((text == null) ? 0 : text.hashCode());
+    result = prime * result + ((title == null) ? 0 : title.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    Step other = (Step) obj;
+    if (index != other.index) {
+      return false;
+    }
+    if (text == null) {
+      if (other.text != null) {
+        return false;
+      }
+    } else if (!text.equals(other.text)) {
+      return false;
+    }
+    if (title == null) {
+      if (other.title != null) {
+        return false;
+      }
+    } else if (!title.equals(other.title)) {
+      return false;
+    }
+    return true;
   }
 }
