@@ -1,8 +1,43 @@
-StartRecipeIntent start recipe {Recipe}
-StartRecipeIntent start recipe for {Recipe}
-StartRecipeIntent please start recipe {Recipe}
-StartRecipeIntent please start recipe for {Recipe}
-StartRecipeIntent start recipe {Recipe} please
-StartRecipeIntent start recipe for {Recipe} please
+WelcomeIntent hello
+WelcomeIntent hey
+WelcomeIntent hi
+WelcomeIntent howdy
+WelcomeIntent greetings
+
+PickRecipeIntent pick {Recipe}
+PickRecipeIntent pick recipe {Recipe}
 
 ListIngredientsIntent list ingredients
+ListIngredientsIntent list ingredients {Recipe}
+ListIngredientsIntent list ingredients for {Recipe}
+
+NextStepIntent go to next step
+NextStepIntent next step
+NextStepIntent next step please
+NextStepIntent start
+NextStepIntent start recipe
+NextStepIntent start next step
+
+QueryStepIntent tell me about step {Step}
+QueryStepIntent what is step {Step}
+QueryStepIntent what is step {Step} of recipe {Recipe}
+
+StatusIntent give a status report
+StatusIntent give me a status report
+StatusIntent how am i doing
+StatusIntent how are we doing
+StatusIntent status report
+StatusIntent what am i doing
+StatusIntent what am i making
+StatusIntent what are we doing
+StatusIntent what are we making
+StatusIntent what step am i on
+StatusIntent what step are we on
+StatusIntent what step is it
+StatusIntent what step is this
+StatusIntent what's happening
+StatusIntent what's up
+StatusIntent which step am i on
+StatusIntent which step are we on
+StatusIntent which step is it
+StatusIntent which step is this

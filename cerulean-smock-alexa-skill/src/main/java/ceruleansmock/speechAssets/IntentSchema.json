@@ -1,7 +1,10 @@
 {
   "intents": [
     {
-      "intent": "StartRecipeIntent",
+      "intent": "WelcomeIntent"
+    },
+    {
+      "intent": "PickRecipeIntent",
       "slots": [
         {
           "name": "Recipe",
@@ -10,7 +13,32 @@
       ]
     },
     {
-      "intent": "ListIngredientsIntent"
+      "intent": "ListIngredientsIntent",
+      "slots": [
+        {
+          "name": "Recipe",
+          "type": "LIST_OF_RECIPES"
+        }
+      ]
+    },
+    {
+      "intent": "NextStepIntent"
+    },
+    {
+      "intent": "QueryStepIntent",
+      "slots": [
+        {
+          "name": "Recipe",
+          "type": "LIST_OF_RECIPES"
+        },
+        {
+          "name": "Step",
+          "type": "AMAZON.NUMBER"
+        }
+      ]
+    },
+    {
+      "intent": "StatusIntent"
     },
     {
       "intent": "AMAZON.HelpIntent"

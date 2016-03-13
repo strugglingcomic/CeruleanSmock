@@ -70,7 +70,7 @@
 
   <properties>
     <property name="disableRequestSignatureCheck" value="false"/>
-    <property name="supportedApplicationIds" value="amzn1.echo-sdk-ams.app.83412ad0-7427-4c3b-847d-7e4c607b6482"/>
+    <property name="supportedApplicationIds" value=""/>
     <property name="timestampTolerance" value="150"/>
   </properties>
 

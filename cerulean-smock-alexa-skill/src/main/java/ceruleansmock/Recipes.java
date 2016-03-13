@@ -16,11 +16,16 @@ public final class Recipes {
   private static final Map<String, Recipe> recipes = new HashMap<String, Recipe>();
 
   static {
-    recipes.put(DEFAULT_RECIPE.getMetadata().getTitle(), DEFAULT_RECIPE);
+    recipes.put(DEFAULT_RECIPE.getMetadata().getTitle().toLowerCase(), DEFAULT_RECIPE);
   }
   
-  public static Recipe get(String item) {
-    return recipes.get(item);
+  /**
+   * recipe titles are case-insensitive
+   * @param recipeTitle
+   * @return
+   */
+  public static Recipe get(String recipeTitle) {
+    return recipes.get(recipeTitle.toLowerCase());
   }
 
   private Recipes() {}

@@ -34,8 +34,8 @@ public class Recipe {
    */
   public Recipe() {
     String title = "Spring Bucatini Pasta";
-    String subtitle = "with Pea Tips, Asparagus & Mint";
-    String overview = "This dish is full of delicate, fresh flavor, thanks to spring vegetables like asparagus and pea tips. And not only are both these vegetables delicious, but they’re also incredibly easy to cook. Quickly sautéing the asparagus with garlic brings out its subtle earthiness and gorgeous color. And adding the pea tips when the dish is almost done preserves their flavor and wilts them just enough. In this dish, we’re loving the simplicity of spring.";
+    String subtitle = "with Pea Tips, Asparagus and Mint";
+    String overview = "This dish is full of delicate, fresh flavor, thanks to spring vegetables like asparagus and pea tips. And not only are both these vegetables delicious, but they're also incredibly easy to cook. Quickly sauteing the asparagus with garlic brings out its subtle earthiness and gorgeous color. And adding the pea tips when the dish is almost done preserves their flavor and wilts them just enough. In this dish, we're loving the simplicity of spring.";
     int servings = 2;
     int calories = 680;
     int cookTime = 35;
@@ -66,7 +66,7 @@ public class Recipe {
     
     List<Step> steps = new ArrayList<Step>();
     Step step1 = new Step(1, "Prepare the ingredients", "Wash and dry the fresh produce. Heat a large pot of salted water to boiling on high. Snap off and discard the woody ends of the asparagus; thinly slice the asparagus on an angle. Peel and thinly slice the garlic. Using a peeler, remove the yellow rind of the lemon, avoiding the white pith; mince the rind to get 2 teaspoons of zest (or use a zester).  Quarter and deseed the lemon. Pick the mint leaves off the stems; discard the stems.");
-    Step step2 = new Step(2, "Cook the pasta", "Add the pasta to the pot of boiling water. Cook 10 to 12 minutes, or until just shy of al dente (still slightly firm to the bite). Reserving ½ cup of the pasta cooking water, thoroughly drain the pasta. Set aside.");
+    Step step2 = new Step(2, "Cook the pasta", "Add the pasta to the pot of boiling water. Cook 10 to 12 minutes, or until just shy of al dente (still slightly firm to the bite). Reserving 1/2 cup of the pasta cooking water, thoroughly drain the pasta. Set aside.");
     Step step3 = new Step(3, "Toast the breadcrumbs", "In a large pan, heat 2 teaspoons of olive oil on medium-high until hot. Add the breadcrumbs. Cook, stirring occasionally, 2 to 3 minutes, or until golden brown; season with salt and pepper. Transfer to a paper towel-lined plate. Wipe out the pan.");
     Step step4 = new Step(4, "Cook the asparagus", "In the same pan used to toast the breadcrumbs, heat 2 teaspoons of olive oil on medium-high until hot. Add the asparagus and garlic; season with salt and pepper. Cook, stirring occasionally, 2 to 3 minutes, or until softened and fragrant.");
     Step step5 = new Step(5, "Finish the pasta", "To the pan of asparagus, add the butter, lemon zest, pea tips, cooked pasta, half the pecorino cheese, half the reserved pasta cooking water, the juice of all 4 lemon wedges and as much of the red pepper flakes as you’d like, depending on how spicy you’d like the dish to be. Cook, stirring frequently, 2 to 3 minutes, or until thoroughly combined. Season with salt and pepper to taste. (If the sauce seems dry, slowly add the remaining pasta cooking water until you achieve your desired consistency.) Remove from heat.");
@@ -100,10 +100,18 @@ public class Recipe {
     return this.steps;
   }
   
-  public String toIngredientsString() {
+  public String getRecipeFullTitle() {
+    return this.getMetadata().getTitle() + " " + this.getMetadata().getSubtitle();
+  }
+  
+  public String getRecipeTitleAndOverview() {
+    return this.getRecipeFullTitle() + ". " + this.getMetadata().getOverview();
+  }
+  
+  public String getIngredientsString() {
     StringBuilder sb = new StringBuilder();
     for(Ingredient ing : this.ingredients) {
-      sb.append(ing + "\n");
+      sb.append(ing + ", ");
     }
     return sb.toString();
   }

@@ -24,6 +24,7 @@ public final class CookBookSpeechletRequestStreamHandler extends SpeechletReques
          * Alexa Skill and put the relevant Application Ids in this Set.
          */
         supportedApplicationIds.add("amzn1.echo-sdk-ams.app.83412ad0-7427-4c3b-847d-7e4c607b6482");
+        supportedApplicationIds.add("amzn1.echo-sdk-ams.app.4152e989-97a4-4b9e-a82b-ddd31c7fe3bb");
     }
 
     public CookBookSpeechletRequestStreamHandler() {

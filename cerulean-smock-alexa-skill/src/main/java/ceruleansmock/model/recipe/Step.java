@@ -28,4 +28,8 @@ public class Step {
     return this.text;
   }
   
+  @Override
+  public String toString() {
+    return this.title + ": " + this.text;
+  }
 }
