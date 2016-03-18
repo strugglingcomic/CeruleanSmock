@@ -1,0 +1,14 @@
+WelcomeIntent hello
+WelcomeIntent hey
+WelcomeIntent hi
+WelcomeIntent howdy
+WelcomeIntent greetings
+
+StatusIntent how far is the bus
+StatusIntent how far away is the bus
+StatusIntent how long until the bus gets here
+StatusIntent how long until the next bus
+StatusIntent how much time
+StatusIntent how much time until the next bus
+StatusIntent when does the next bus get here
+StatusIntent when is the next bus

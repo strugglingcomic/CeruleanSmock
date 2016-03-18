@@ -1,0 +1,13 @@
+{
+  "intents": [
+    {
+      "intent": "WelcomeIntent"
+    },
+    {
+      "intent": "StatusIntent"
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    }
+  ]
+}
