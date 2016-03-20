@@ -4,7 +4,7 @@
       "intent": "WelcomeIntent"
     },
     {
-      "intent": "StatusIntent"
+      "intent": "DefaultStatusIntent"
     },
     {
       "intent": "AMAZON.HelpIntent"
