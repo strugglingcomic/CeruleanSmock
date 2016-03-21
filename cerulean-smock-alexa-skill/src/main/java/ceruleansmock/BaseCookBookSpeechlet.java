@@ -17,9 +17,9 @@ import com.amazon.speech.speechlet.SessionStartedRequest;
 import com.amazon.speech.speechlet.Speechlet;
 import com.amazon.speech.speechlet.SpeechletException;
 import com.amazon.speech.speechlet.SpeechletResponse;
-import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.Reprompt;
 import com.amazon.speech.ui.SimpleCard;
+import com.amazon.speech.ui.SsmlOutputSpeech;
 
 import ceruleansmock.model.Constants;
 import ceruleansmock.model.Recipe;
@@ -324,9 +324,9 @@ public class BaseCookBookSpeechlet implements Speechlet {
     card.setTitle(Constants.APP_NAME);
     card.setContent(speechText);
 
-    PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-    speech.setText(speechText);
-
+    final SsmlOutputSpeech speech = new SsmlOutputSpeech();
+    speech.setSsml(String.format("<speak>%s</speak>", speechText));
+    
     return SpeechletResponse.newTellResponse(speech, card);
   }
 
@@ -340,8 +340,8 @@ public class BaseCookBookSpeechlet implements Speechlet {
     card.setTitle(Constants.APP_NAME);
     card.setContent(speechText);
 
-    PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-    speech.setText(speechText);
+    final SsmlOutputSpeech speech = new SsmlOutputSpeech();
+    speech.setSsml(String.format("<speak>%s</speak>", speechText));
 
     Reprompt reprompt = new Reprompt();
     reprompt.setOutputSpeech(speech);
