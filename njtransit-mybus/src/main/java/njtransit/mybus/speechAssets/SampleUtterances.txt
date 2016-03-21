@@ -5,6 +5,7 @@ WelcomeIntent howdy
 WelcomeIntent greetings
 
 DefaultStatusIntent how far is the bus
+DefaultStatusIntent how far is the next bus
 DefaultStatusIntent how far away is the bus
 DefaultStatusIntent how long
 DefaultStatusIntent how long until the bus gets here

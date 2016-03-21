@@ -26,6 +26,7 @@ import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.Reprompt;
 import com.amazon.speech.ui.SimpleCard;
+import com.amazon.speech.ui.SsmlOutputSpeech;
 
 import njtransit.mybus.model.BusRouteETA;
 import njtransit.mybus.model.Constants;
@@ -39,7 +40,7 @@ public class MyBusSpeechlet implements Speechlet {
   
   public static final String NJTRANSIT_MYBUS_URL_ROOT = "http://mybusnow.njtransit.com/bustime/wireless/html/eta.jsp";
   
-  private static final String SPEECH_SHORT_BREAK = "\\<break time\\=\"0.25s\" \\/\\>";
+  private static final String SPEECH_SHORT_BREAK = "<break time=\"0.25s\"/>";
   private static final String DEFAULT_STOP_NAME = "Bergenline Avenue and 55th Street";
   
   private Client client;
@@ -90,21 +91,25 @@ public class MyBusSpeechlet implements Speechlet {
    * @return SpeechletResponse spoken and visual response for the given intent
    */
   private SpeechletResponse getWelcomeResponse() {
-    final String speechText = "Hi there.  You can ask me for the latest NJTransit MyBus information for your home bus stop "
+    final String speechText = "Hi there.  You can ask me for the latest NJTransit MyBus information for your home bus stop: "
         + SPEECH_SHORT_BREAK + DEFAULT_STOP_NAME;
     return makeSimpleAskResponse(speechText);
   }
 
   private SpeechletResponse getDefaultStatusResponse(final Intent intent, final Session session) {
-    String speechText = "For the " + DEFAULT_STOP_NAME + " stop: ";
+    String speechText = "For the " + DEFAULT_STOP_NAME + " stop: " + SPEECH_SHORT_BREAK;
 
     final List<BusRouteETA> defaultETAs = new ArrayList<BusRouteETA>();
     defaultETAs.addAll(new NJTransitMyBusRequest("156", "New York", "21880", false).getBusRouteETA(this.client, NJTRANSIT_MYBUS_URL_ROOT));
     defaultETAs.addAll(new NJTransitMyBusRequest("159", "New York", "21880", false).getBusRouteETA(this.client, NJTRANSIT_MYBUS_URL_ROOT));
     Collections.sort(defaultETAs);
 
-    for (final BusRouteETA eta : defaultETAs) {
-      speechText += " " + eta.toString() + ". ";
+    if(defaultETAs.isEmpty()) {
+      speechText += " I couldn't find any buses for your search, within the next 30 minutes. ";
+    } else {
+      for (final BusRouteETA eta : defaultETAs) {
+        speechText += " " + eta.toString() + ". ";
+      }
     }
     // TODO: log something
     // log.info();
@@ -117,7 +122,7 @@ public class MyBusSpeechlet implements Speechlet {
    * @return
    */
   private SpeechletResponse getUnknownResponse() {
-    final String speechText = "Sorry, I don't know how to do that. You can say \"help\", to ask for assistance.";
+    final String speechText = "Sorry, I don't know how to do that. You can say, ask Buster for help, to ask for assistance.";
     return makeSimpleAskResponse(speechText);
   }
 
@@ -127,7 +132,7 @@ public class MyBusSpeechlet implements Speechlet {
    * @return SpeechletResponse spoken and visual response for the given intent
    */
   private SpeechletResponse getHelpResponse() {
-    final String speechText = "If you need help, just say, Alexa, ask my bus when is the next bus?";
+    final String speechText = "If you need help, just say: Alexa, ask " + Constants.INVOCATION_NAME + " when is the next bus?";
     return makeSimpleAskResponse(speechText);
   }
 
@@ -142,8 +147,8 @@ public class MyBusSpeechlet implements Speechlet {
     card.setTitle(Constants.APP_NAME);
     card.setContent(speechText);
 
-    final PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-    speech.setText(speechText);
+    final SsmlOutputSpeech speech = new SsmlOutputSpeech();
+    speech.setSsml(String.format("<speak>%s</speak>", speechText));
 
     return SpeechletResponse.newTellResponse(speech, card);
   }
@@ -159,8 +164,8 @@ public class MyBusSpeechlet implements Speechlet {
     card.setTitle(Constants.APP_NAME);
     card.setContent(speechText);
 
-    final PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-    speech.setText(speechText);
+    final SsmlOutputSpeech speech = new SsmlOutputSpeech();
+    speech.setSsml(String.format("<speak>%s</speak>", speechText));
 
     final Reprompt reprompt = new Reprompt();
     reprompt.setOutputSpeech(speech);
